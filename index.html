@@ -304,6 +304,29 @@
 				transform: scale(1);
 			}
 		}
+		
+        #btn-qr {
+        	background-image: linear-gradient(to bottom, #00acc1, #00838f);
+        	color: white;
+        	border: none;
+        	border-radius: 8px;
+        	padding: 12px 20px;
+        	font-size: 16px;
+        	font-weight: bold;
+        	cursor: pointer;
+        	box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        	transition: background 0.3s ease, transform 0.2s ease;
+        	display: flex;
+        	align-items: center;
+        	justify-content: center;
+        	gap: 10px;
+        }
+        
+        #btn-qr:hover {
+        	background-image: linear-gradient(to bottom, #00838f, #006064);
+        	transform: scale(1.03);
+        }
+		
 	</style>
 </head>
 <body>
@@ -311,7 +334,9 @@
 		<h1>Validação de Certificado</h1>
 
         <button id="btn-qr" class="btn-validar-codigo">📷 Ler QR Code</button>
-        <div id="leitor-qr" style="display:none; margin-top: 15px;"></div>		
+        <div id="leitor-qr" style="display:none; margin-top: 15px;"></div>
+        <p id="mensagem-leitura" style="display: none; color: green; font-weight: bold;">Leitura completa</p>
+
 		
 
 		<label for="codigo">Código do Certificado:</label>
@@ -381,11 +406,11 @@
     			qrCodeMessage => {
     				// ⚠️ apturar o valor lido do QR Code:
     				document.getElementById("codigo").value = qrCodeMessage;
-
-    				// Se quiser inserir diretamente em um input:
-    				document.querySelector('input[name="codigoValidacao"]').value = qrCodeMessage;
+                    pararLeitor();
+    				// Exibe mensagem ao usuário
+    				mensagemLeitura.style.display = "block";
+    				mensagemLeitura.textContent = "Leitura completa";
     
-    				pararLeitor();
     			},
     			errorMessage => {
     				// Apenas log de erro durante leitura (pode esconder se quiser)
